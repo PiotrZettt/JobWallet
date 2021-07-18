@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}<title>Home</title>{% endblock %}
+
+{% block content %}
+  <h1>Electronic Job Wallet</h1>
+  <p>Welcome to Electronic Job Wallet, a website developed by <em>Happy Pete</em>!</p>
+  <h2>Dynamic content</h2>
+  <p>The Wallet has the following record counts:</p>
+  <ul class="sidebar-nav">
+    <li><strong>Customers:</strong> {{ num_books }}</li>
+    <li><strong>Parts:</strong> {{ num_instances }}</li>
+  </ul>
+{% endblock %}

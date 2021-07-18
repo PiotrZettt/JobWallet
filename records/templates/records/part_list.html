@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <form>
+    <label >Enter FG Code: </label>
+    <input id="Fg_code" type="text" name="FG_field" value="">
+    <input type="submit" value="Search">
+  </form>
+  <h1>Parts List</h1>
+  {% if part_list %}
+  <ul>
+    {% for part in part_list %}
+    {% if part.FGcode == FG_field %}
+      <li>{{part.FGcode}}
+        <a href="{{ part.get_absolute_url }}">{{ part.serial_number }}</a>
+        ({{part.description}})
+      </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no parts in the records.</p>
+  {% endif %} 
+{% endblock %}

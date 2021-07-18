@@ -1,0 +1,28 @@
+PART_DESCRIPTION = [('Coupe Deck', 'FG1942'),
+    ('LH Coupe Fender', 'FG1986'),
+    ('RH Coupe Fender', 'FG1989'),
+    ('Tonneau', 'FG2268'),
+    ('LH Spider Fender', 'FG2275'),
+    ('RH Spider Fender', 'FG2279'),
+    ('LH Door Assembly', 'FG2303'),
+    ('RH Door Assembly', 'FG2304'),
+    ('Hood Outer', 'FG2231'),
+    ('LH Door Assembly', 'FG2165'),
+    ('RH Door Assembly', 'FG2166'),
+    ('LH Front Wing', 'FG1754'),
+    ('RH Door Assembly', 'FG1755'),
+    ]
+
+OPERATIONS = [('1 forming', 'Forming'),
+              ('2 trimming', 'Trimming'),
+              ('3 chemi-clean', 'Chemi-Clean'),
+              ('4 re-strike', 'Re-Strike'),
+              ('5 goods-In_Inspection', 'Goods-in Inspection'),
+              ('6 pre-Assembly', 'Pre-Assembly'),
+              ('7 assembly', 'Assembly'),
+              ('8 hemming', 'Hemming'),
+              ('9 a-Class', 'A-Class'),
+              ('10 gap_and_flush', 'Gap and Flush'),
+              ('11 heat_treatment', 'Heat Treatment'),
+              ('12 final_inspection', 'Final Inspection')]
+

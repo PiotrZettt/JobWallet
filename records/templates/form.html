@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Form</title>
-</head>
+{% extends "base_generic.html" %}
+{% block content %}
+
 <body>
-    <form action="/team_name_url/" method="post">
-    <label for="team_name">Enter name: </label>
-    <input id="team_name" type="text" name="name_field" value="Default name for team.">
-    <input type="submit" value="OK">
-</form>
+    <form class="form-control form-control-sm" action="templates/form" method="post" accept-charset="utf-8">
+        {{ form.as_p }}
+        <label>Operator:</label>  {{ user }}
+        <input type="submit" value="{{ form.save }}"/>
+    </form>
 </body>
-</html>
+{% endblock %}

@@ -1,5 +1,16 @@
-.sidebar-nav = {
-    margin-top: 20px;
-    padding: 0;
-    list-style: none;
+.nav-text {
+    color: white;
+}
+
+form {
+    text-align: center;
+}
+
+p {
+  color: dark-grey;
+  text-align: center;
+}
+
+.p-serials {
+    text-align: left
 }

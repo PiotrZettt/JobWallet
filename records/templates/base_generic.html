@@ -12,7 +12,7 @@
 <body>
   <div class="container-fluid">
           {% block navbar %}
-        <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <nav class="navbar navbar-expand navbar-dark" style="background-color: #17355D">
           <a class="navbar-brand" href="">SUPERFORM</a>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
@@ -21,7 +21,7 @@
           <li class="nav-item"><a class="nav-link" href="{% url 'create_wallet' %}">Create new Job Wallet</a></li>
 
             {% if request.user.is_authenticated %}
-            <li class="nav-text mt-2 ml-2">You are logged in as: {{request.user.username }}</li>
+            <li class="nav-text mt-2 ml-5">You are logged in as: {{request.user.username }}</li>
             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
             {% else %}
             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>

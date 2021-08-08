@@ -3,28 +3,31 @@
 
 {% block content %}
 
-  <h3 style="text-align:center">ADD OPERATION </h3>
-    <hr>
+<h3 style="text-align:center">ADD OPERATION </h3>
+<hr>
 
-<div class="cointainer-fluid">
-  <form method="post" >
+<form method="post">
     {% csrf_token %}
 
-    <div class="form-group col-md-3 mb-2">
-        {{ form.operation_name|as_crispy_field }}
+    <div class="cointainer">
 
+        <div class="row">
+
+            <div class="col-sm">
+                {{ form.comments|as_crispy_field }}
+            </div>
+
+            <div class="col-sm mb-2 mt-4">
+                {{ form.operation_name|as_crispy_field }}
+
+                <div class=" mb-2">
+                    {{ form.operation_status|as_crispy_field }}
+                </div>
+
+                <button type="submit" class="btn btn-secondary">Sign</button>
+
+            </div>
+        </div>
     </div>
-
-      <div class="form-group col-md-6 mb-2">
-        {{ form.comments|as_crispy_field }}
-      </div>
-
-
-      <div class="form-group col-md-3 mb-2">
-        {{ form.operation_status|as_crispy_field }}
-      </div>
-
-    <button type="submit" class="btn btn-secondary">Signs</button>
-  </form>
+</form>
 {% endblock %}
-</div>

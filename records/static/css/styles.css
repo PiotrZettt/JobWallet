@@ -18,3 +18,8 @@ p {
 .p-serials {
     text-align: left
 }
+
+.main-title {
+    text-align: center;
+    font-family: arial;
+}

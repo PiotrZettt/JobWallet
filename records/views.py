@@ -1,7 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .models import Customer, Part, PartInstance, Operation, Wallet
 from django.views import generic
 from .forms import AddOperationModelForm, CreateJobWalletModelForm, SearchForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Create your views here.
@@ -9,17 +13,22 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 def index(request):
 
-    num_parts = Part.objects.all().count()
-    num_customers = Customer.objects.all().count()
+    if request.user.is_authenticated:
+        num_parts = Part.objects.all().count()
+        num_customers = Customer.objects.all().count()
 
-    context = {
-        'num_part': num_parts,
-        'num_customers': num_customers,
-    }
-    print(num_customers, num_parts)
-    return render(request, 'index.html', context)
+        context = {
+            'num_part': num_parts,
+            'num_customers': num_customers,
+        }
+        print(num_customers, num_parts)
+        return render(request, 'index.html', context)
+    else:
+        return redirect('login')
 
 
+
+@login_required
 def add_operation(request, pk):
     form = AddOperationModelForm()
     user = request.user
@@ -47,6 +56,7 @@ def add_operation(request, pk):
     return render(request, 'add_operation.html', context)
 
 
+@login_required
 def create_job_wallet(request):
     form = CreateJobWalletModelForm()
 
@@ -84,49 +94,57 @@ def create_job_wallet(request):
 
     return render(request, 'create_job_wallet.html', context)
 
-
+@login_required()
 def search(request):
 
     parts = None
     if request.method == 'POST':
-        print('received get request')
         searched = request.POST['searched']
         parts = PartInstance.objects.filter(serial_number__contains=searched)
-        # .filter(part_origin__customer=form.cleaned_data['customer']).filter(part_origin__FG_code__icontains=form.cleaned_data['part_FG'])
-        print(parts)
     context = {
-
         'parts': parts
     }
 
     return render(request, 'search_results.html', context)
 
+# def logout(request):
+#     try:
+#         del request.session['member_id']
+#     except KeyError:
+#         return HttpResponse("You're logged out.")
+#     return redirect("login")
 
-class PartListView(generic.ListView):
+def not_logged_in(request):
+    return render(request, 'not_logged_in.html')
+
+decorators = [never_cache, login_required]
+
+@method_decorator(decorators, name='dispatch')
+class PartListView(LoginRequiredMixin, generic.ListView):
+    model = Part
+
+@method_decorator(decorators, name='dispatch')
+class PartDetailView(LoginRequiredMixin, generic.DetailView):
 
     model = Part
 
-
-class PartDetailView(generic.DetailView):
-
-    model = Part
-
-
-class CustomerListView(generic.ListView):
+@method_decorator(decorators, name='dispatch')
+class CustomerListView(LoginRequiredMixin, generic.ListView):
 
     model = Customer
 
-
-class CustomerDetailView(generic.DetailView):
+@method_decorator(decorators, name='dispatch')
+class CustomerDetailView(LoginRequiredMixin, generic.DetailView):
 
     model = Customer
 
-
-class OperationDetailView(generic.DetailView):
+@method_decorator(decorators, name='dispatch')
+class OperationDetailView(LoginRequiredMixin, generic.DetailView):
 
     model = Operation
 
-class SearchResultsView(generic.ListView):
+@method_decorator(decorators, name='dispatch')
+class SearchResultsView(LoginRequiredMixin, generic.ListView):
     model = Part
     template_name = 'search_results.html'
 
@@ -136,28 +154,30 @@ class SearchResultsView(generic.ListView):
 
         return object_list
 
-
-class OperationListView(generic.ListView):
+@method_decorator(decorators, name='dispatch')
+class OperationListView(LoginRequiredMixin, generic.ListView):
 
     model = Operation
 
-class PartInstanceListView(generic.ListView):
+@method_decorator(decorators, name='dispatch')
+class PartInstanceListView(LoginRequiredMixin, generic.ListView):
 
     model = PartInstance
 
-
-class PartInstanceDetailView(generic.DetailView):
+@method_decorator(decorators, name='dispatch')
+class PartInstanceDetailView(LoginRequiredMixin, generic.DetailView):
 
     model = PartInstance
 
+@method_decorator(decorators, name='dispatch')
+class WalletListView(LoginRequiredMixin, generic.ListView):
 
-class WalletListView(generic.ListView):
+    model = Wallet
+
+@method_decorator(decorators, name='dispatch')
+class WalletDetailView(LoginRequiredMixin, generic.DetailView):
 
     model = Wallet
 
-
-class WalletDetailView(generic.DetailView):
-
-    model = Wallet
 
 

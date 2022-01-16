@@ -18,8 +18,8 @@ The parts can be recognized and called by serial number or an "FG" (project) cod
 
 Tools used
 
-The project has been built using Django framework.
-It also utilises Bootstrap4 and Jinga2
+The project has been built with Django framework.
+It also utilises Bootstrap4 and Jinja2
 
 To do
 

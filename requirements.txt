@@ -1,2 +1,4 @@
 -e git+https://github.com/django/django.git@5e04e84d67da8163f365e9f5fcd169e2630e2873#egg=Django
 django-crispy-forms==1.12.0
+rest_framework
+djangorestframework~=3.12.4

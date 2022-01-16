@@ -46,7 +46,6 @@ def add_operation(request, pk):
                 operator=user,
                 operation_status=form.cleaned_data['operation_status']
             )
-
         return redirect('index')
 
     context = {
@@ -79,7 +78,11 @@ def create_job_wallet(request):
             order_quantity = form.cleaned_data['order_quantity']
             order_number = form.cleaned_data['order_number']
             for i in range(1, order_quantity + 1):
-                single_number = str(i) + '-' + str(order_number)
+                if i < 10:
+                    single_number = '0' + str(i) + '-' + str(order_number)
+
+                else:
+                    single_number = str(i) + '-' + str(order_number)
                 parts_list.append(single_number)
             for number in parts_list:
                 PartInstance.objects.create(job_wallet=new_wallet,

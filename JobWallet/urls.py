@@ -18,13 +18,20 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
+from api import urls as api_urls
+
 from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='records/', permanent=True)),
     path('records/', include('records.urls')),
+    path('analysis/', include('analysis.urls', namespace='analysis')),
     path('accounts/login', RedirectView.as_view(url='login', permanent=True)),
+    path('api/', include('api.urls')),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls'))
+
     # path('logout/', LogoutView.as_view(), name='logout')
 ]
 

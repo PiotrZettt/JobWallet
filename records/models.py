@@ -58,8 +58,9 @@ class PartInstance(models.Model):
 
 
 class Operation(models.Model):
+    owner = models.ForeignKey('auth.User', related_name='operations', on_delete=models.CASCADE, default=1)
     processed_part = models.ForeignKey(PartInstance, related_name='operations', on_delete=models.CASCADE, null=True)
-    operation_name = models.CharField(max_length=120, choices=OPERATIONS)
+    operation_name = models.CharField(max_length=120, choices=OPERATIONS, unique=True)
     date_signed = models.DateTimeField(auto_now_add=True)
     comments = models.TextField(null=True,  blank=True, max_length=240 )
     operator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
@@ -77,6 +78,9 @@ class Operation(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.operation_name
+
+    def save(self, *args, **kwargs):
+        super(Operation, self).save(*args, **kwargs)
 
 
 class Wallet(models.Model):
